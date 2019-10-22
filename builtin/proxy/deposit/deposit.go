@@ -20,6 +20,7 @@
 package deposit
 
 import (
+	"github.com/insolar/insolar/application/appfoundation"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/logicrunner/builtin/foundation"
 	"github.com/insolar/insolar/logicrunner/common"
@@ -30,16 +31,16 @@ type DaemonConfirm struct {
 	Amount    string `json:"amount"`
 }
 type DepositOut struct {
-	Balance                 string                 `json:"balance"`
-	HoldStartDate           int64                  `json:"holdStartDate"`
-	PulseDepositUnHold      int64                  `json:"holdReleaseDate"`
-	MigrationDaemonConfirms []DaemonConfirm        `json:"confirmerReferences"`
-	Amount                  string                 `json:"amount"`
-	TxHash                  string                 `json:"ethTxHash"`
-	VestingType             foundation.VestingType `json:"vestingType"`
-	Lockup                  int64                  `json:"lockup"`
-	Vesting                 int64                  `json:"vesting"`
-	VestingStep             int64                  `json:"vestingStep"`
+	Balance                 string                    `json:"balance"`
+	HoldStartDate           int64                     `json:"holdStartDate"`
+	PulseDepositUnHold      int64                     `json:"holdReleaseDate"`
+	MigrationDaemonConfirms []DaemonConfirm           `json:"confirmerReferences"`
+	Amount                  string                    `json:"amount"`
+	TxHash                  string                    `json:"ethTxHash"`
+	VestingType             appfoundation.VestingType `json:"vestingType"`
+	Lockup                  int64                     `json:"lockup"`
+	Vesting                 int64                     `json:"vesting"`
+	VestingStep             int64                     `json:"vestingStep"`
 }
 
 // PrototypeReference to prototype of this contract

@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/insolar/insolar/application/appfoundation"
 	"github.com/insolar/insolar/application/builtin/contract/member/signer"
 	"github.com/insolar/insolar/application/builtin/proxy/account"
 	"github.com/insolar/insolar/application/builtin/proxy/deposit"
@@ -170,7 +171,7 @@ func (m *Member) Call(signedRequest []byte) (interface{}, error) {
 
 	callSiteArgs := strings.Split(request.Params.CallSite, ".")
 	if len(callSiteArgs) == 2 && callSiteArgs[0] == "migration" {
-		migrationAdminContract := migrationadmin.GetObject(foundation.GetMigrationAdmin())
+		migrationAdminContract := migrationadmin.GetObject(appfoundation.GetMigrationAdmin())
 		return migrationAdminContract.MigrationAdminCall(params, callSiteArgs[1], m.GetReference())
 	}
 
@@ -321,7 +322,7 @@ func (m *Member) depositTransferCall(params map[string]interface{}) (interface{}
 }
 
 func (m *Member) depositMigrationCall(params map[string]interface{}) (interface{}, error) {
-	migrationAdmin := migrationadmin.GetObject(foundation.GetMigrationAdmin())
+	migrationAdmin := migrationadmin.GetObject(appfoundation.GetMigrationAdmin())
 	migrationDaemonRef, err := migrationAdmin.GetMigrationDaemonByMemberRef(m.GetReference().String())
 	if err != nil {
 		return nil, err
@@ -375,7 +376,7 @@ type MigrationCreateResponse struct {
 
 func (m *Member) memberMigrationCreate(key string) (*MigrationCreateResponse, error) {
 
-	migrationAdminContract := migrationadmin.GetObject(foundation.GetMigrationAdmin())
+	migrationAdminContract := migrationadmin.GetObject(appfoundation.GetMigrationAdmin())
 	migrationAddress, err := migrationAdminContract.GetFreeMigrationAddress(key)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get migration address: %s", err.Error())
