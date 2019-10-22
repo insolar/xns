@@ -17,6 +17,8 @@
 package appfoundation
 
 import (
+	"regexp"
+
 	"github.com/insolar/insolar/application/genesisrefs"
 	"github.com/insolar/insolar/insolar"
 )
@@ -61,32 +63,9 @@ func IsMigrationDaemonMember(member insolar.Reference) bool {
 	return false
 }
 
-const EthAddressLength = 20
+var etheriumAddressRegex = regexp.MustCompile(`^(0x)?[\dA-Fa-f]{40}$`)
 
 // IsEthereumAddress Ethereum address format verifier
 func IsEthereumAddress(s string) bool {
-	if hasHexPrefix(s) {
-		s = s[2:]
-	}
-	return len(s) == 2*EthAddressLength && isHex(s)
-}
-
-func hasHexPrefix(str string) bool {
-	return len(str) >= 2 && str[0] == '0' && (str[1] == 'x' || str[1] == 'X')
-}
-
-func isHexCharacter(c byte) bool {
-	return ('0' <= c && c <= '9') || ('a' <= c && c <= 'f') || ('A' <= c && c <= 'F')
-}
-
-func isHex(str string) bool {
-	if len(str)%2 != 0 {
-		return false
-	}
-	for _, c := range []byte(str) {
-		if !isHexCharacter(c) {
-			return false
-		}
-	}
-	return true
+	return etheriumAddressRegex.MatchString(s)
 }
