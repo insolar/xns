@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/insolar/insolar/application/appfoundation"
 	"github.com/insolar/insolar/application/builtin/proxy/deposit"
 	"github.com/insolar/insolar/application/builtin/proxy/member"
 	"github.com/insolar/insolar/application/builtin/proxy/migrationdaemon"
@@ -36,29 +37,29 @@ const numConfirmation = 2
 // Deposit is like wallet. It holds migrated money.
 type Deposit struct {
 	foundation.BaseContract
-	Balance                 string                 `json:"balance"`
-	PulseDepositUnHold      insolar.PulseNumber    `json:"holdReleaseDate"`
-	MigrationDaemonConfirms foundation.StableMap   `json:"confirmerReferences"`
-	Amount                  string                 `json:"amount"`
-	TxHash                  string                 `json:"ethTxHash"`
-	VestingType             foundation.VestingType `json:"vestingType"`
-	Lockup                  int64                  `json:"lockupInPulses"`
-	Vesting                 int64                  `json:"vestingInPulses"`
-	VestingStep             int64                  `json:"vestingStepInPulses"`
+	Balance                 string                    `json:"balance"`
+	PulseDepositUnHold      insolar.PulseNumber       `json:"holdReleaseDate"`
+	MigrationDaemonConfirms foundation.StableMap      `json:"confirmerReferences"`
+	Amount                  string                    `json:"amount"`
+	TxHash                  string                    `json:"ethTxHash"`
+	VestingType             appfoundation.VestingType `json:"vestingType"`
+	Lockup                  int64                     `json:"lockupInPulses"`
+	Vesting                 int64                     `json:"vestingInPulses"`
+	VestingStep             int64                     `json:"vestingStepInPulses"`
 }
 
 // Form of Deposit that is applied in API
 type DepositOut struct {
-	Balance                 string                 `json:"balance"`
-	HoldStartDate           int64                  `json:"holdStartDate"`
-	PulseDepositUnHold      int64                  `json:"holdReleaseDate"`
-	MigrationDaemonConfirms []DaemonConfirm        `json:"confirmerReferences"`
-	Amount                  string                 `json:"amount"`
-	TxHash                  string                 `json:"ethTxHash"`
-	VestingType             foundation.VestingType `json:"vestingType"`
-	Lockup                  int64                  `json:"lockup"`
-	Vesting                 int64                  `json:"vesting"`
-	VestingStep             int64                  `json:"vestingStep"`
+	Balance                 string                    `json:"balance"`
+	HoldStartDate           int64                     `json:"holdStartDate"`
+	PulseDepositUnHold      int64                     `json:"holdReleaseDate"`
+	MigrationDaemonConfirms []DaemonConfirm           `json:"confirmerReferences"`
+	Amount                  string                    `json:"amount"`
+	TxHash                  string                    `json:"ethTxHash"`
+	VestingType             appfoundation.VestingType `json:"vestingType"`
+	Lockup                  int64                     `json:"lockup"`
+	Vesting                 int64                     `json:"vesting"`
+	VestingStep             int64                     `json:"vestingStep"`
 }
 
 type DaemonConfirm struct {
@@ -122,7 +123,7 @@ func New(migrationDaemonRef insolar.Reference, txHash string, amount string,
 		Lockup:                  lockup,
 		Vesting:                 vesting,
 		VestingStep:             vestingStep,
-		VestingType:             foundation.DefaultVesting,
+		VestingType:             appfoundation.DefaultVesting,
 	}, nil
 }
 
@@ -157,7 +158,7 @@ func (d *Deposit) Confirm(migrationDaemonRef string, txHash string, amountStr st
 		d.Amount = amountStr
 		d.PulseDepositUnHold = currentPulse + insolar.PulseNumber(d.Lockup)
 
-		ma := member.GetObject(foundation.GetMigrationAdminMember())
+		ma := member.GetObject(appfoundation.GetMigrationAdminMember())
 		walletRef, err := ma.GetWallet()
 		if err != nil {
 			return fmt.Errorf("failed to get wallet: %s", err.Error())
@@ -233,7 +234,7 @@ func (d *Deposit) checkConfirm(migrationDaemonRef string, amountStr string) erro
 			return fmt.Errorf(" failed to parse params.Reference")
 		}
 
-		migrationDaemonContractRef, err := foundation.GetMigrationDaemon(*migrationDaemonMemberRef)
+		migrationDaemonContractRef, err := appfoundation.GetMigrationDaemon(*migrationDaemonMemberRef)
 		if err != nil || migrationDaemonContractRef.IsEmpty() {
 			return fmt.Errorf(" get migration daemon contract from foundation failed, %s ", err)
 		}

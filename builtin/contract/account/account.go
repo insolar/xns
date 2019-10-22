@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/insolar/insolar/application/appfoundation"
 	"github.com/insolar/insolar/application/builtin/proxy/costcenter"
 	"github.com/insolar/insolar/application/builtin/proxy/deposit"
 	"github.com/insolar/insolar/application/builtin/proxy/member"
@@ -138,7 +139,7 @@ func (a *Account) Transfer(rootDomainRef insolar.Reference, amountStr string, to
 		return nil, fmt.Errorf("amount must be larger then zero")
 	}
 
-	ccRef := foundation.GetCostCenter()
+	ccRef := appfoundation.GetCostCenter()
 
 	cc := costcenter.GetObject(ccRef)
 	feeStr, err := cc.CalcFee(amountStr)

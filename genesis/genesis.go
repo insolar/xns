@@ -23,6 +23,7 @@ import (
 	"github.com/pkg/errors"
 
 	"github.com/insolar/insolar/application"
+	"github.com/insolar/insolar/application/appfoundation"
 	"github.com/insolar/insolar/application/bootstrap/contracts"
 	"github.com/insolar/insolar/application/genesisrefs"
 	"github.com/insolar/insolar/insolar"
@@ -264,7 +265,7 @@ func (g *Genesis) storeContracts(ctx context.Context) error {
 			int64(pulse.OfUnixTime(MigrationDaemonLockup)),
 			MigrationDaemonVesting,
 			MigrationDaemonVestingStep,
-			foundation.Vesting2,
+			appfoundation.Vesting2,
 			0,
 			application.GenesisNameMigrationAdminDeposit,
 			application.GenesisNameRootDomain,
@@ -288,7 +289,7 @@ func (g *Genesis) storeContracts(ctx context.Context) error {
 			int64(pulse.OfUnixTime(ApplicationIncentivesLockup)),
 			ApplicationIncentivesVesting,
 			ApplicationIncentivesVestingStep,
-			foundation.Vesting2,
+			appfoundation.Vesting2,
 			0,
 			application.GenesisNameApplicationIncentivesDeposits[i],
 			application.GenesisNameRootDomain,
@@ -316,7 +317,7 @@ func (g *Genesis) storeContracts(ctx context.Context) error {
 			int64(pulse.OfUnixTime(NetworkIncentivesLockup)),
 			NetworkIncentivesVesting,
 			NetworkIncentivesVestingStep,
-			foundation.Vesting2,
+			appfoundation.Vesting2,
 			0,
 			application.GenesisNameNetworkIncentivesDeposits[i],
 			application.GenesisNameRootDomain,
@@ -344,7 +345,7 @@ func (g *Genesis) storeContracts(ctx context.Context) error {
 			int64(pulse.OfUnixTime(FoundationLockup)),
 			FoundationVesting,
 			FoundationVestingStep,
-			foundation.Vesting2,
+			appfoundation.Vesting2,
 			0,
 			application.GenesisNameFoundationDeposits[i],
 			application.GenesisNameRootDomain,
@@ -372,7 +373,7 @@ func (g *Genesis) storeContracts(ctx context.Context) error {
 			FundsLockup,
 			FundsVesting,
 			FundsVestingStep,
-			foundation.Vesting2,
+			appfoundation.Vesting2,
 			0,
 			application.GenesisNameFundsDeposits[i],
 			application.GenesisNameRootDomain,
@@ -400,7 +401,7 @@ func (g *Genesis) storeContracts(ctx context.Context) error {
 			EnterpriseLockup,
 			EnterpriseVesting,
 			EnterpriseVestingStep,
-			foundation.Vesting2,
+			appfoundation.Vesting2,
 			0,
 			application.GenesisNameEnterpriseDeposits[i],
 			application.GenesisNameRootDomain,
