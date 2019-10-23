@@ -69,10 +69,10 @@ func (a *Account) transfer(
 
 // Accept accepts transfer to balance.
 //ins:saga(INS_FLAG_NO_ROLLBACK_METHOD)
-func (a *Account) Accept(amountStr string) error {
+func (a *Account) Accept(arg appfoundation.SagaAcceptInfo) error {
 
 	amount := new(big.Int)
-	amount, ok := amount.SetString(amountStr, 10)
+	amount, ok := amount.SetString(arg.Amount, 10)
 	if !ok {
 		return fmt.Errorf("can't parse input amount")
 	}

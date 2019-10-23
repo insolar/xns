@@ -20,6 +20,7 @@
 package account
 
 import (
+	"github.com/insolar/insolar/application/appfoundation"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/logicrunner/builtin/foundation"
 	"github.com/insolar/insolar/logicrunner/common"
@@ -107,7 +108,7 @@ func INSMETHOD_Accept(object []byte, data []byte) ([]byte, []byte, error) {
 	}
 
 	args := make([]interface{}, 1)
-	var args0 string
+	var args0 appfoundation.SagaAcceptInfo
 	args[0] = &args0
 
 	err = ph.Deserialize(data, &args)
