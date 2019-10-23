@@ -45,7 +45,7 @@ type DepositOut struct {
 
 // PrototypeReference to prototype of this contract
 // error checking hides in generator
-var PrototypeReference, _ = insolar.NewObjectReferenceFromString("insolar:0AAAAyMPCPoB0_7TDBh7dydzcQcqFqlbDu0bDPGr27oY")
+var PrototypeReference, _ = insolar.NewObjectReferenceFromString("insolar:0AAABAsPCPoB0_7TDBh7dydzcQcqFqlbDu0bDPGr27oY")
 
 // Deposit holds proxy type
 type Deposit struct {
