@@ -242,12 +242,14 @@ func (r *Wallet) GetAccountAsImmutable(assetName string) (*insolar.Reference, er
 }
 
 // Transfer is proxy generated method
-func (r *Wallet) Transfer(rootDomainRef insolar.Reference, assetName string, amountStr string, toMember *insolar.Reference) (interface{}, error) {
-	var args [4]interface{}
+func (r *Wallet) Transfer(rootDomainRef insolar.Reference, assetName string, amountStr string, toMember *insolar.Reference, fromMember insolar.Reference, request insolar.Reference) (interface{}, error) {
+	var args [6]interface{}
 	args[0] = rootDomainRef
 	args[1] = assetName
 	args[2] = amountStr
 	args[3] = toMember
+	args[4] = fromMember
+	args[5] = request
 
 	var argsSerialized []byte
 
@@ -285,12 +287,14 @@ func (r *Wallet) Transfer(rootDomainRef insolar.Reference, assetName string, amo
 }
 
 // TransferAsImmutable is proxy generated method
-func (r *Wallet) TransferAsImmutable(rootDomainRef insolar.Reference, assetName string, amountStr string, toMember *insolar.Reference) (interface{}, error) {
-	var args [4]interface{}
+func (r *Wallet) TransferAsImmutable(rootDomainRef insolar.Reference, assetName string, amountStr string, toMember *insolar.Reference, fromMember insolar.Reference, request insolar.Reference) (interface{}, error) {
+	var args [6]interface{}
 	args[0] = rootDomainRef
 	args[1] = assetName
 	args[2] = amountStr
 	args[3] = toMember
+	args[4] = fromMember
+	args[5] = request
 
 	var argsSerialized []byte
 

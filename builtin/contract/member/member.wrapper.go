@@ -405,7 +405,7 @@ func INSMETHOD_Accept(object []byte, data []byte) ([]byte, []byte, error) {
 	}
 
 	args := make([]interface{}, 1)
-	var args0 string
+	var args0 SagaAcceptInfo
 	args[0] = &args0
 
 	err = ph.Deserialize(data, &args)

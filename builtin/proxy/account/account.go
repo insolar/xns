@@ -25,8 +25,13 @@ import (
 	"github.com/insolar/insolar/logicrunner/common"
 )
 
+type SagaAcceptInfo struct {
+	Amount     string
+	FromMember insolar.Reference
+	Request    insolar.Reference
+}
 type destination interface {
-	Accept(string) error
+	Accept(SagaAcceptInfo) error
 }
 
 // PrototypeReference to prototype of this contract
@@ -265,10 +270,12 @@ func (r *Account) RollBackAsImmutable(amountStr string) error {
 }
 
 // TransferToDeposit is proxy generated method
-func (r *Account) TransferToDeposit(amountStr string, toDeposit insolar.Reference) error {
-	var args [2]interface{}
+func (r *Account) TransferToDeposit(amountStr string, toDeposit insolar.Reference, fromMember insolar.Reference, request insolar.Reference) error {
+	var args [4]interface{}
 	args[0] = amountStr
 	args[1] = toDeposit
+	args[2] = fromMember
+	args[3] = request
 
 	var argsSerialized []byte
 
@@ -304,10 +311,12 @@ func (r *Account) TransferToDeposit(amountStr string, toDeposit insolar.Referenc
 }
 
 // TransferToDepositAsImmutable is proxy generated method
-func (r *Account) TransferToDepositAsImmutable(amountStr string, toDeposit insolar.Reference) error {
-	var args [2]interface{}
+func (r *Account) TransferToDepositAsImmutable(amountStr string, toDeposit insolar.Reference, fromMember insolar.Reference, request insolar.Reference) error {
+	var args [4]interface{}
 	args[0] = amountStr
 	args[1] = toDeposit
+	args[2] = fromMember
+	args[3] = request
 
 	var argsSerialized []byte
 
@@ -343,10 +352,12 @@ func (r *Account) TransferToDepositAsImmutable(amountStr string, toDeposit insol
 }
 
 // TransferToMember is proxy generated method
-func (r *Account) TransferToMember(amountStr string, toMember insolar.Reference) error {
-	var args [2]interface{}
+func (r *Account) TransferToMember(amountStr string, toMember insolar.Reference, fromMember insolar.Reference, request insolar.Reference) error {
+	var args [4]interface{}
 	args[0] = amountStr
 	args[1] = toMember
+	args[2] = fromMember
+	args[3] = request
 
 	var argsSerialized []byte
 
@@ -382,10 +393,12 @@ func (r *Account) TransferToMember(amountStr string, toMember insolar.Reference)
 }
 
 // TransferToMemberAsImmutable is proxy generated method
-func (r *Account) TransferToMemberAsImmutable(amountStr string, toMember insolar.Reference) error {
-	var args [2]interface{}
+func (r *Account) TransferToMemberAsImmutable(amountStr string, toMember insolar.Reference, fromMember insolar.Reference, request insolar.Reference) error {
+	var args [4]interface{}
 	args[0] = amountStr
 	args[1] = toMember
+	args[2] = fromMember
+	args[3] = request
 
 	var argsSerialized []byte
 
@@ -499,11 +512,13 @@ func (r *Account) GetBalance() (string, error) {
 }
 
 // Transfer is proxy generated method
-func (r *Account) Transfer(rootDomainRef insolar.Reference, amountStr string, toMember *insolar.Reference) (interface{}, error) {
-	var args [3]interface{}
+func (r *Account) Transfer(rootDomainRef insolar.Reference, amountStr string, toMember *insolar.Reference, fromMember insolar.Reference, request insolar.Reference) (interface{}, error) {
+	var args [5]interface{}
 	args[0] = rootDomainRef
 	args[1] = amountStr
 	args[2] = toMember
+	args[3] = fromMember
+	args[4] = request
 
 	var argsSerialized []byte
 
@@ -541,11 +556,13 @@ func (r *Account) Transfer(rootDomainRef insolar.Reference, amountStr string, to
 }
 
 // TransferAsImmutable is proxy generated method
-func (r *Account) TransferAsImmutable(rootDomainRef insolar.Reference, amountStr string, toMember *insolar.Reference) (interface{}, error) {
-	var args [3]interface{}
+func (r *Account) TransferAsImmutable(rootDomainRef insolar.Reference, amountStr string, toMember *insolar.Reference, fromMember insolar.Reference, request insolar.Reference) (interface{}, error) {
+	var args [5]interface{}
 	args[0] = rootDomainRef
 	args[1] = amountStr
 	args[2] = toMember
+	args[3] = fromMember
+	args[4] = request
 
 	var argsSerialized []byte
 

@@ -55,6 +55,11 @@ type Request struct {
 	Method  string `json:"method"`
 	Params  Params `json:"params"`
 }
+type SagaAcceptInfo struct {
+	Amount     string
+	FromMember insolar.Reference
+	Request    insolar.Reference
+}
 type TransferResponse struct {
 	Fee string `json:"fee"`
 }
@@ -672,9 +677,9 @@ func (r *Member) GetMigrationAddress() (string, error) {
 }
 
 // Accept is proxy generated method
-func (r *Member) Accept(amountStr string) error {
+func (r *Member) Accept(arg SagaAcceptInfo) error {
 	var args [1]interface{}
-	args[0] = amountStr
+	args[0] = arg
 
 	var argsSerialized []byte
 

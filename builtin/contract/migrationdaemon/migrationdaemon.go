@@ -43,7 +43,9 @@ type DepositMigrationResult struct {
 }
 
 // DepositMigrationCall internal function migration admin from api.
-func (md *MigrationDaemon) DepositMigrationCall(params map[string]interface{}, caller insolar.Reference) (*DepositMigrationResult, error) {
+func (md *MigrationDaemon) DepositMigrationCall(
+	params map[string]interface{}, caller insolar.Reference, request insolar.Reference,
+) (*DepositMigrationResult, error) {
 
 	amount, err := getAmountFromParam(params)
 	if err != nil {
@@ -62,7 +64,7 @@ func (md *MigrationDaemon) DepositMigrationCall(params map[string]interface{}, c
 	base, _ := new(big.Int).SetString(CONVERSION, 10)
 	amountXns := new(big.Int).Mul(amount, base)
 
-	return md.depositMigration(txId, migrationAddress, amountXns, caller)
+	return md.depositMigration(txId, migrationAddress, amountXns, caller, request)
 }
 
 // Set status Migration daemon.
@@ -83,7 +85,9 @@ func (md *MigrationDaemon) GetMigrationDaemonMember() (insolar.Reference, error)
 	return md.MigrationDaemonMember, nil
 }
 
-func (md *MigrationDaemon) depositMigration(txHash string, migrationAddress string, amount *big.Int, caller insolar.Reference) (*DepositMigrationResult, error) {
+func (md *MigrationDaemon) depositMigration(
+	txHash string, migrationAddress string, amount *big.Int, caller insolar.Reference, request insolar.Reference,
+) (*DepositMigrationResult, error) {
 
 	if !caller.Equal(md.MigrationDaemonMember) {
 		return nil, fmt.Errorf(" the migration daemon member is not related migration daemon contract, %s ", caller)
@@ -130,7 +134,7 @@ func (md *MigrationDaemon) depositMigration(txHash string, migrationAddress stri
 		}
 		return depositMigrationResult, nil
 	}
-	return addConfirmToDeposit(tokenHolderRef.String(), *txDepositRef, caller.String(), txHash, amount.String())
+	return addConfirmToDeposit(tokenHolderRef.String(), *txDepositRef, txHash, amount.String(), caller, request)
 }
 
 func getAmountFromParam(params map[string]interface{}) (*big.Int, error) {
@@ -150,10 +154,13 @@ func getAmountFromParam(params map[string]interface{}) (*big.Int, error) {
 	return amount, nil
 }
 
-func addConfirmToDeposit(tokenHolderRef string, txDepositRef insolar.Reference, caller string, txHash string, amount string) (*DepositMigrationResult, error) {
+func addConfirmToDeposit(
+	tokenHolderRef string, txDepositRef insolar.Reference, txHash string,
+	amount string, caller insolar.Reference, request insolar.Reference,
+) (*DepositMigrationResult, error) {
 	txDeposit := deposit.GetObject(txDepositRef)
 
-	err := txDeposit.Confirm(caller, txHash, amount)
+	err := txDeposit.Confirm(txHash, amount, caller, request)
 	if err != nil {
 		return nil, fmt.Errorf("confirmed failed: %s", err.Error())
 	}
