@@ -20,6 +20,7 @@
 package member
 
 import (
+	"github.com/insolar/insolar/application/appfoundation"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/logicrunner/builtin/foundation"
 	"github.com/insolar/insolar/logicrunner/common"
@@ -672,9 +673,9 @@ func (r *Member) GetMigrationAddress() (string, error) {
 }
 
 // Accept is proxy generated method
-func (r *Member) Accept(amountStr string) error {
+func (r *Member) Accept(arg appfoundation.SagaAcceptInfo) error {
 	var args [1]interface{}
-	args[0] = amountStr
+	args[0] = arg
 
 	var argsSerialized []byte
 

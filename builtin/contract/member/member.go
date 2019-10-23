@@ -294,7 +294,13 @@ func (m *Member) transferCall(params map[string]interface{}) (interface{}, error
 		return nil, fmt.Errorf("failed to get destination wallet: %s", err.Error())
 	}
 
-	return wallet.GetObject(m.Wallet).Transfer(m.RootDomain, asset, amount, recipientReference)
+	fromMember := m.GetReference()
+	request, err := foundation.GetRequestReference()
+	if err != nil {
+		return nil, fmt.Errorf("failed to get destination wallet: %s", err.Error())
+	}
+
+	return wallet.GetObject(m.Wallet).Transfer(m.RootDomain, asset, amount, recipientReference, fromMember, *request)
 }
 
 func (m *Member) depositTransferCall(params map[string]interface{}) (interface{}, error) {
@@ -316,9 +322,14 @@ func (m *Member) depositTransferCall(params map[string]interface{}) (interface{}
 	if !find {
 		return nil, fmt.Errorf("can't find deposit")
 	}
-	d := deposit.GetObject(*dRef)
 
-	return d.Transfer(amount, m.GetReference())
+	request, err := foundation.GetRequestReference()
+	if err != nil {
+		return nil, fmt.Errorf("failed to get destination wallet: %s", err.Error())
+	}
+
+	d := deposit.GetObject(*dRef)
+	return d.Transfer(amount, m.GetReference(), *request)
 }
 
 func (m *Member) depositMigrationCall(params map[string]interface{}) (interface{}, error) {
@@ -328,8 +339,13 @@ func (m *Member) depositMigrationCall(params map[string]interface{}) (interface{
 		return nil, err
 	}
 
+	request, err := foundation.GetRequestReference()
+	if err != nil {
+		return nil, fmt.Errorf("failed to get destination wallet: %s", err.Error())
+	}
+
 	migrationDaemon := migrationdaemon.GetObject(migrationDaemonRef)
-	return migrationDaemon.DepositMigrationCall(params, m.GetReference())
+	return migrationDaemon.DepositMigrationCall(params, m.GetReference(), *request)
 }
 
 // Platform methods.
@@ -475,15 +491,16 @@ func (m *Member) memberGet(publicKey string) (interface{}, error) {
 }
 
 // Accept accepts transfer to balance.
+// FromMember and Request not used, but needed by observer, do not remove
 //ins:saga(INS_FLAG_NO_ROLLBACK_METHOD)
-func (m *Member) Accept(amountStr string) error {
+func (m *Member) Accept(arg appfoundation.SagaAcceptInfo) error {
 
 	accountRef, err := m.GetAccount(XNS)
 	if err != nil {
 		return fmt.Errorf("failed to get account reference: %s", err.Error())
 	}
 	acc := account.GetObject(*accountRef)
-	err = acc.IncreaseBalance(amountStr)
+	err = acc.IncreaseBalance(arg.Amount)
 	if err != nil {
 		return fmt.Errorf("failed to increase balance: %s", err.Error())
 	}
