@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/insolar/insolar/application/appfoundation"
 	"github.com/insolar/insolar/application/builtin/contract/member/signer"
 	"github.com/insolar/insolar/application/builtin/proxy/account"
 	"github.com/insolar/insolar/application/builtin/proxy/deposit"
@@ -170,7 +171,7 @@ func (m *Member) Call(signedRequest []byte) (interface{}, error) {
 
 	callSiteArgs := strings.Split(request.Params.CallSite, ".")
 	if len(callSiteArgs) == 2 && callSiteArgs[0] == "migration" {
-		migrationAdminContract := migrationadmin.GetObject(foundation.GetMigrationAdmin())
+		migrationAdminContract := migrationadmin.GetObject(appfoundation.GetMigrationAdmin())
 		return migrationAdminContract.MigrationAdminCall(params, callSiteArgs[1], m.GetReference())
 	}
 
@@ -322,18 +323,17 @@ func (m *Member) depositTransferCall(params map[string]interface{}) (interface{}
 		return nil, fmt.Errorf("can't find deposit")
 	}
 
-	fromMember := m.GetReference()
 	request, err := foundation.GetRequestReference()
 	if err != nil {
 		return nil, fmt.Errorf("failed to get destination wallet: %s", err.Error())
 	}
 
 	d := deposit.GetObject(*dRef)
-	return d.Transfer(amount, m.GetReference())
+	return d.Transfer(amount, m.GetReference(), *request)
 }
 
 func (m *Member) depositMigrationCall(params map[string]interface{}) (interface{}, error) {
-	migrationAdmin := migrationadmin.GetObject(foundation.GetMigrationAdmin())
+	migrationAdmin := migrationadmin.GetObject(appfoundation.GetMigrationAdmin())
 	migrationDaemonRef, err := migrationAdmin.GetMigrationDaemonByMemberRef(m.GetReference().String())
 	if err != nil {
 		return nil, err
@@ -345,7 +345,7 @@ func (m *Member) depositMigrationCall(params map[string]interface{}) (interface{
 	}
 
 	migrationDaemon := migrationdaemon.GetObject(migrationDaemonRef)
-	return migrationDaemon.DepositMigrationCall(params, m.GetReference(), request)
+	return migrationDaemon.DepositMigrationCall(params, m.GetReference(), *request)
 }
 
 // Platform methods.
@@ -392,7 +392,7 @@ type MigrationCreateResponse struct {
 
 func (m *Member) memberMigrationCreate(key string) (*MigrationCreateResponse, error) {
 
-	migrationAdminContract := migrationadmin.GetObject(foundation.GetMigrationAdmin())
+	migrationAdminContract := migrationadmin.GetObject(appfoundation.GetMigrationAdmin())
 	migrationAddress, err := migrationAdminContract.GetFreeMigrationAddress(key)
 	if err != nil {
 		return nil, fmt.Errorf("failed to get migration address: %s", err.Error())
@@ -490,16 +490,10 @@ func (m *Member) memberGet(publicKey string) (interface{}, error) {
 	return GetResponse{Reference: ref.String(), MigrationAddress: ma}, nil
 }
 
-type SagaAcceptInfo struct {
-	Amount     string
-	FromMember insolar.Reference
-	Request    insolar.Reference
-}
-
 // Accept accepts transfer to balance.
 // FromMember and Request not used, but needed by observer, do not remove
 //ins:saga(INS_FLAG_NO_ROLLBACK_METHOD)
-func (m *Member) Accept(arg SagaAcceptInfo) error {
+func (m *Member) Accept(arg appfoundation.SagaAcceptInfo) error {
 
 	accountRef, err := m.GetAccount(XNS)
 	if err != nil {

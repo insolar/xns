@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/insolar/insolar/application/appfoundation"
 	"github.com/insolar/insolar/application/builtin/proxy/deposit"
 	"github.com/insolar/insolar/application/builtin/proxy/member"
 	"github.com/insolar/insolar/application/builtin/proxy/migrationadmin"
@@ -101,7 +102,7 @@ func (md *MigrationDaemon) depositMigration(
 		return nil, fmt.Errorf("this migration daemon is not active daemons: %s", caller)
 	}
 
-	migrationAdminContract := migrationadmin.GetObject(foundation.GetMigrationAdmin())
+	migrationAdminContract := migrationadmin.GetObject(appfoundation.GetMigrationAdmin())
 	// Get member by migration address
 	tokenHolderRef, err := migrationAdminContract.GetMemberByMigrationAddress(migrationAddress)
 	if err != nil {

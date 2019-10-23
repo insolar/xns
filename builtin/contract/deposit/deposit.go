@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/insolar/insolar/application/builtin/proxy/account"
+	"github.com/insolar/insolar/application/appfoundation"
 	"github.com/insolar/insolar/application/builtin/proxy/deposit"
 	"github.com/insolar/insolar/application/builtin/proxy/member"
 	"github.com/insolar/insolar/application/builtin/proxy/migrationdaemon"
@@ -37,29 +37,29 @@ const numConfirmation = 2
 // Deposit is like wallet. It holds migrated money.
 type Deposit struct {
 	foundation.BaseContract
-	Balance                 string                 `json:"balance"`
-	PulseDepositUnHold      insolar.PulseNumber    `json:"holdReleaseDate"`
-	MigrationDaemonConfirms foundation.StableMap   `json:"confirmerReferences"`
-	Amount                  string                 `json:"amount"`
-	TxHash                  string                 `json:"ethTxHash"`
-	VestingType             foundation.VestingType `json:"vestingType"`
-	Lockup                  int64                  `json:"lockupInPulses"`
-	Vesting                 int64                  `json:"vestingInPulses"`
-	VestingStep             int64                  `json:"vestingStepInPulses"`
+	Balance                 string                    `json:"balance"`
+	PulseDepositUnHold      insolar.PulseNumber       `json:"holdReleaseDate"`
+	MigrationDaemonConfirms foundation.StableMap      `json:"confirmerReferences"`
+	Amount                  string                    `json:"amount"`
+	TxHash                  string                    `json:"ethTxHash"`
+	VestingType             appfoundation.VestingType `json:"vestingType"`
+	Lockup                  int64                     `json:"lockupInPulses"`
+	Vesting                 int64                     `json:"vestingInPulses"`
+	VestingStep             int64                     `json:"vestingStepInPulses"`
 }
 
 // Form of Deposit that is applied in API
 type DepositOut struct {
-	Balance                 string                 `json:"balance"`
-	HoldStartDate           int64                  `json:"holdStartDate"`
-	PulseDepositUnHold      int64                  `json:"holdReleaseDate"`
-	MigrationDaemonConfirms []DaemonConfirm        `json:"confirmerReferences"`
-	Amount                  string                 `json:"amount"`
-	TxHash                  string                 `json:"ethTxHash"`
-	VestingType             foundation.VestingType `json:"vestingType"`
-	Lockup                  int64                  `json:"lockup"`
-	Vesting                 int64                  `json:"vesting"`
-	VestingStep             int64                  `json:"vestingStep"`
+	Balance                 string                    `json:"balance"`
+	HoldStartDate           int64                     `json:"holdStartDate"`
+	PulseDepositUnHold      int64                     `json:"holdReleaseDate"`
+	MigrationDaemonConfirms []DaemonConfirm           `json:"confirmerReferences"`
+	Amount                  string                    `json:"amount"`
+	TxHash                  string                    `json:"ethTxHash"`
+	VestingType             appfoundation.VestingType `json:"vestingType"`
+	Lockup                  int64                     `json:"lockup"`
+	Vesting                 int64                     `json:"vesting"`
+	VestingStep             int64                     `json:"vestingStep"`
 }
 
 type DaemonConfirm struct {
@@ -123,7 +123,7 @@ func New(migrationDaemonRef insolar.Reference, txHash string, amount string,
 		Lockup:                  lockup,
 		Vesting:                 vesting,
 		VestingStep:             vestingStep,
-		VestingType:             foundation.DefaultVesting,
+		VestingType:             appfoundation.DefaultVesting,
 	}, nil
 }
 
@@ -161,7 +161,7 @@ func (d *Deposit) Confirm(
 		d.Amount = amountStr
 		d.PulseDepositUnHold = currentPulse + insolar.PulseNumber(d.Lockup)
 
-		ma := member.GetObject(foundation.GetMigrationAdminMember())
+		ma := member.GetObject(appfoundation.GetMigrationAdminMember())
 		walletRef, err := ma.GetWallet()
 		if err != nil {
 			return fmt.Errorf("failed to get wallet: %s", err.Error())
@@ -201,7 +201,7 @@ func (d *Deposit) TransferToDeposit(
 	}
 	d.Balance = newBalance.String()
 	destination := deposit.GetObject(toDeposit)
-	acceptDepositErr := destination.Accept(deposit.SagaAcceptInfo{
+	acceptDepositErr := destination.Accept(appfoundation.SagaAcceptInfo{
 		Amount:     amountStr,
 		FromMember: fromMember,
 		Request:    request,
@@ -243,7 +243,7 @@ func (d *Deposit) checkConfirm(migrationDaemonRef string, amountStr string) erro
 			return fmt.Errorf(" failed to parse params.Reference")
 		}
 
-		migrationDaemonContractRef, err := foundation.GetMigrationDaemon(*migrationDaemonMemberRef)
+		migrationDaemonContractRef, err := appfoundation.GetMigrationDaemon(*migrationDaemonMemberRef)
 		if err != nil || migrationDaemonContractRef.IsEmpty() {
 			return fmt.Errorf(" get migration daemon contract from foundation failed, %s ", err)
 		}
@@ -277,7 +277,7 @@ func (d *Deposit) canTransfer(transferAmount *big.Int) error {
 			c++
 		}
 	}
-	if c < numConfirmation {
+	if d.VestingType == appfoundation.DefaultVesting && c < numConfirmation {
 		return fmt.Errorf("number of confirms is less then 2")
 	}
 
@@ -316,7 +316,7 @@ func (d *Deposit) canTransfer(transferAmount *big.Int) error {
 
 // Transfer transfers money from deposit to wallet. It can be called only after deposit hold period.
 func (d *Deposit) Transfer(
-	amountStr string, memberRef insolar.Reference, fromMember insolar.Reference, request insolar.Reference,
+	amountStr string, memberRef insolar.Reference, request insolar.Reference,
 ) (interface{}, error) {
 
 	amount, ok := new(big.Int).SetString(amountStr, 10)
@@ -342,9 +342,9 @@ func (d *Deposit) Transfer(
 	d.Balance = newBalance.String()
 
 	m := member.GetObject(memberRef)
-	acceptMemberErr := m.Accept(member.SagaAcceptInfo{
+	acceptMemberErr := m.Accept(appfoundation.SagaAcceptInfo{
 		Amount:     amountStr,
-		FromMember: fromMember,
+		FromMember: memberRef,
 		Request:    request,
 	})
 	if acceptMemberErr == nil {
@@ -356,7 +356,7 @@ func (d *Deposit) Transfer(
 
 // Accept accepts transfer to balance.
 // ins:saga(INS_FLAG_NO_ROLLBACK_METHOD)
-func (d *Deposit) Accept(arg account.SagaAcceptInfo) error {
+func (d *Deposit) Accept(arg appfoundation.SagaAcceptInfo) error {
 
 	amount := new(big.Int)
 	amount, ok := amount.SetString(arg.Amount, 10)

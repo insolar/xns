@@ -25,15 +25,6 @@ import (
 	"github.com/insolar/insolar/logicrunner/common"
 )
 
-type SagaAcceptInfo struct {
-	Amount     string
-	FromMember insolar.Reference
-	Request    insolar.Reference
-}
-type destination interface {
-	Accept(SagaAcceptInfo) error
-}
-
 // PrototypeReference to prototype of this contract
 // error checking hides in generator
 var PrototypeReference, _ = insolar.NewObjectReferenceFromString("insolar:0AAAAyCjqpfzqLqOhivOFDQOK5OO_gW78OzTTniCChIU")

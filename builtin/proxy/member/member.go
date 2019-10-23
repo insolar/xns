@@ -20,6 +20,7 @@
 package member
 
 import (
+	"github.com/insolar/insolar/application/appfoundation"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/logicrunner/builtin/foundation"
 	"github.com/insolar/insolar/logicrunner/common"
@@ -54,11 +55,6 @@ type Request struct {
 	ID      uint64 `json:"id"`
 	Method  string `json:"method"`
 	Params  Params `json:"params"`
-}
-type SagaAcceptInfo struct {
-	Amount     string
-	FromMember insolar.Reference
-	Request    insolar.Reference
 }
 type TransferResponse struct {
 	Fee string `json:"fee"`
@@ -677,7 +673,7 @@ func (r *Member) GetMigrationAddress() (string, error) {
 }
 
 // Accept is proxy generated method
-func (r *Member) Accept(arg SagaAcceptInfo) error {
+func (r *Member) Accept(arg appfoundation.SagaAcceptInfo) error {
 	var args [1]interface{}
 	args[0] = arg
 

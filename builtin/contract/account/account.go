@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/insolar/insolar/application/builtin/proxy/account"
+	"github.com/insolar/insolar/application/appfoundation"
 	"github.com/insolar/insolar/application/builtin/proxy/costcenter"
 	"github.com/insolar/insolar/application/builtin/proxy/deposit"
 	"github.com/insolar/insolar/application/builtin/proxy/member"
@@ -38,14 +38,8 @@ func New(balance string) (*Account, error) {
 	return &Account{Balance: balance}, nil
 }
 
-type SagaAcceptInfo struct {
-	Amount     string
-	FromMember insolar.Reference
-	Request    insolar.Reference
-}
-
 type destination interface {
-	Accept(account.SagaAcceptInfo) error
+	Accept(appfoundation.SagaAcceptInfo) error
 }
 
 // Transfer transfers funds to giver reference.
@@ -66,7 +60,7 @@ func (a *Account) transfer(
 		return fmt.Errorf("not enough balance for transfer: %s", err.Error())
 	}
 	a.Balance = newBalance.String()
-	return destinationObject.Accept(SagaAcceptInfo{
+	return destinationObject.Accept(appfoundation.SagaAcceptInfo{
 		Amount:     amountStr,
 		FromMember: fromMember,
 		Request:    request,
@@ -135,7 +129,7 @@ func (a *Account) TransferToMember(
 	amountStr string, toMember insolar.Reference, fromMember insolar.Reference, request insolar.Reference,
 ) error {
 	to := member.GetObject(toMember)
-	return to.Accept(member.SagaAcceptInfo{
+	return to.Accept(appfoundation.SagaAcceptInfo{
 		Amount:     amountStr,
 		FromMember: fromMember,
 		Request:    request,
@@ -162,7 +156,7 @@ func (a *Account) Transfer(
 		return nil, fmt.Errorf("amount must be larger then zero")
 	}
 
-	ccRef := foundation.GetCostCenter()
+	ccRef := appfoundation.GetCostCenter()
 
 	cc := costcenter.GetObject(ccRef)
 	feeStr, err := cc.CalcFee(amountStr)

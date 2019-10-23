@@ -20,7 +20,7 @@
 package deposit
 
 import (
-	"github.com/insolar/insolar/application/builtin/proxy/account"
+	"github.com/insolar/insolar/application/appfoundation"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/logicrunner/builtin/foundation"
 	"github.com/insolar/insolar/logicrunner/common"
@@ -31,16 +31,16 @@ type DaemonConfirm struct {
 	Amount    string `json:"amount"`
 }
 type DepositOut struct {
-	Balance                 string                 `json:"balance"`
-	HoldStartDate           int64                  `json:"holdStartDate"`
-	PulseDepositUnHold      int64                  `json:"holdReleaseDate"`
-	MigrationDaemonConfirms []DaemonConfirm        `json:"confirmerReferences"`
-	Amount                  string                 `json:"amount"`
-	TxHash                  string                 `json:"ethTxHash"`
-	VestingType             foundation.VestingType `json:"vestingType"`
-	Lockup                  int64                  `json:"lockup"`
-	Vesting                 int64                  `json:"vesting"`
-	VestingStep             int64                  `json:"vestingStep"`
+	Balance                 string                    `json:"balance"`
+	HoldStartDate           int64                     `json:"holdStartDate"`
+	PulseDepositUnHold      int64                     `json:"holdReleaseDate"`
+	MigrationDaemonConfirms []DaemonConfirm           `json:"confirmerReferences"`
+	Amount                  string                    `json:"amount"`
+	TxHash                  string                    `json:"ethTxHash"`
+	VestingType             appfoundation.VestingType `json:"vestingType"`
+	Lockup                  int64                     `json:"lockup"`
+	Vesting                 int64                     `json:"vesting"`
+	VestingStep             int64                     `json:"vestingStep"`
 }
 
 // PrototypeReference to prototype of this contract
@@ -661,12 +661,11 @@ func (r *Deposit) TransferToDepositAsImmutable(amountStr string, toDeposit insol
 }
 
 // Transfer is proxy generated method
-func (r *Deposit) Transfer(amountStr string, memberRef insolar.Reference, fromMember insolar.Reference, request insolar.Reference) (interface{}, error) {
-	var args [4]interface{}
+func (r *Deposit) Transfer(amountStr string, memberRef insolar.Reference, request insolar.Reference) (interface{}, error) {
+	var args [3]interface{}
 	args[0] = amountStr
 	args[1] = memberRef
-	args[2] = fromMember
-	args[3] = request
+	args[2] = request
 
 	var argsSerialized []byte
 
@@ -704,12 +703,11 @@ func (r *Deposit) Transfer(amountStr string, memberRef insolar.Reference, fromMe
 }
 
 // TransferAsImmutable is proxy generated method
-func (r *Deposit) TransferAsImmutable(amountStr string, memberRef insolar.Reference, fromMember insolar.Reference, request insolar.Reference) (interface{}, error) {
-	var args [4]interface{}
+func (r *Deposit) TransferAsImmutable(amountStr string, memberRef insolar.Reference, request insolar.Reference) (interface{}, error) {
+	var args [3]interface{}
 	args[0] = amountStr
 	args[1] = memberRef
-	args[2] = fromMember
-	args[3] = request
+	args[2] = request
 
 	var argsSerialized []byte
 
@@ -747,7 +745,7 @@ func (r *Deposit) TransferAsImmutable(amountStr string, memberRef insolar.Refere
 }
 
 // Accept is proxy generated method
-func (r *Deposit) Accept(arg account.SagaAcceptInfo) error {
+func (r *Deposit) Accept(arg appfoundation.SagaAcceptInfo) error {
 	var args [1]interface{}
 	args[0] = arg
 
