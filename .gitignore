@@ -30,6 +30,10 @@ vendor
 .vendor-new
 *.lock
 
+# wasm tests
+vm/wasm/test/data/!simple!.wasm
+vm/wasm/test/data/*.wat
+
 /testdata
 data
 
@@ -41,5 +45,17 @@ coverage.txt
 # GoReleaser dist dir
 /dist
 
+# deploy stuff
+/ci/local-dev/logs
+/ci/local-dev/manifests/ks/lib
+
+# network tests artifacts
+network/servicenetwork/network_cache
+network_cache
+
 # Local doc build directory
 /docs/build
+
+# contracts generated files
+application/contract
+application/proxy
