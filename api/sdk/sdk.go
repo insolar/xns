@@ -27,12 +27,13 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/insolar/xns"
-	"github.com/insolar/xns/api/requester"
-	"github.com/insolar/xns/bootstrap"
+	"github.com/insolar/insolar/api/requester"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/instrumentation/inslogger"
 	"github.com/insolar/insolar/platformpolicy"
+
+	"github.com/insolar/xns"
+	"github.com/insolar/xns/bootstrap"
 )
 
 type ringBuffer struct {

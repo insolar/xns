@@ -61,6 +61,10 @@ func NewGeneratorWithConfig(config *Config, certificatesOutDir string) *Generato
 	}
 }
 
+func IsEthereumAddress(s string) bool {
+	return true
+}
+
 func (g *Generator) readMigrationAddresses() ([][]string, error) {
 	file := g.config.MembersKeysDir + "migration_addresses.json"
 	result := make([][]string, g.config.MAShardCount)
@@ -76,7 +80,8 @@ func (g *Generator) readMigrationAddresses() ([][]string, error) {
 	}
 
 	for _, a := range ma {
-		if foundation.IsEthereumAddress(a) {
+		// todo: use foundation
+		if IsEthereumAddress(a) {
 			address := foundation.TrimAddress(a)
 			i := foundation.GetShardIndex(address, g.config.MAShardCount)
 			result[i] = append(result[i], address)
