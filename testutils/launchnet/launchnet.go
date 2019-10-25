@@ -38,8 +38,8 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/insolar/insolar/application"
-	"github.com/insolar/insolar/application/api/requester"
+	"github.com/insolar/insolar/xns"
+	"github.com/insolar/insolar/xns/api/requester"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/insolar/defaults"
 )

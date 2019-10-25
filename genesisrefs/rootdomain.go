@@ -19,7 +19,7 @@ package genesisrefs
 import (
 	"sync"
 
-	"github.com/insolar/insolar/application"
+	"github.com/insolar/insolar/xns"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/insolar/record"
 	"github.com/insolar/insolar/platformpolicy"

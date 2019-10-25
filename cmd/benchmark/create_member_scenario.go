@@ -17,7 +17,7 @@
 package main
 
 import (
-	"github.com/insolar/insolar/application/api/sdk"
+	"github.com/insolar/insolar/xns/api/sdk"
 )
 
 type createMemberScenario struct {

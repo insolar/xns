@@ -20,10 +20,10 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/insolar/insolar/application/builtin/proxy/deposit"
-	"github.com/insolar/insolar/application/builtin/proxy/member"
-	"github.com/insolar/insolar/application/builtin/proxy/migrationadmin"
-	"github.com/insolar/insolar/application/builtin/proxy/wallet"
+	"github.com/insolar/insolar/xns/builtin/proxy/deposit"
+	"github.com/insolar/insolar/xns/builtin/proxy/member"
+	"github.com/insolar/insolar/xns/builtin/proxy/migrationadmin"
+	"github.com/insolar/insolar/xns/builtin/proxy/wallet"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/logicrunner/builtin/foundation"
 )

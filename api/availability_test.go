@@ -28,7 +28,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/insolar/insolar/application/api"
+	"github.com/insolar/insolar/xns/api"
 	"github.com/insolar/insolar/configuration"
 )
 

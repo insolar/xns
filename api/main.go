@@ -29,7 +29,7 @@ import (
 	jsonrpc "github.com/insolar/rpc/v2/json2"
 	"github.com/pkg/errors"
 
-	"github.com/insolar/insolar/application/api/seedmanager"
+	"github.com/insolar/insolar/xns/api/seedmanager"
 	"github.com/insolar/insolar/insolar/pulse"
 	"github.com/insolar/insolar/network"
 

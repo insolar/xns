@@ -22,7 +22,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/insolar/insolar/application/testutils/launchnet"
+	"github.com/insolar/insolar/xns/testutils/launchnet"
 	"github.com/insolar/insolar/instrumentation/insmetrics"
 )
 

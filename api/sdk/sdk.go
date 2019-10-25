@@ -27,9 +27,9 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/insolar/insolar/application"
-	"github.com/insolar/insolar/application/api/requester"
-	"github.com/insolar/insolar/application/bootstrap"
+	"github.com/insolar/insolar/xns"
+	"github.com/insolar/insolar/xns/api/requester"
+	"github.com/insolar/insolar/xns/bootstrap"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/instrumentation/inslogger"
 	"github.com/insolar/insolar/platformpolicy"
