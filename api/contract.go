@@ -28,7 +28,7 @@ import (
 	"github.com/pkg/errors"
 
 	"github.com/insolar/xns/api/instrumenter"
-	"github.com/insolar/xns/api/requester"
+	"github.com/insolar/insolar/api/requester"
 	"github.com/insolar/xns/api/seedmanager"
 	"github.com/insolar/xns/extractor"
 	"github.com/insolar/xns/genesisrefs"

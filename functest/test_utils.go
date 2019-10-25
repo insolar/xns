@@ -36,7 +36,7 @@ import (
 	"github.com/insolar/xns/genesisrefs"
 
 	"github.com/insolar/xns/api"
-	"github.com/insolar/xns/api/requester"
+	"github.com/insolar/insolar/api/requester"
 	"github.com/insolar/xns/testutils/launchnet"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/platformpolicy"

@@ -20,7 +20,7 @@ package functest
 import (
 	"testing"
 
-	"github.com/insolar/xns/api/requester"
+	"github.com/insolar/insolar/api/requester"
 
 	"github.com/stretchr/testify/require"
 

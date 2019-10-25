@@ -23,7 +23,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/insolar/xns/api/requester"
+	"github.com/insolar/insolar/api/requester"
 	"github.com/insolar/xns/testutils/launchnet"
 	"github.com/insolar/insolar/logicrunner/builtin/foundation"
 )

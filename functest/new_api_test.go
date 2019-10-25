@@ -31,7 +31,7 @@ import (
 
 	"github.com/insolar/insolar/platformpolicy"
 
-	"github.com/insolar/xns/api/requester"
+	"github.com/insolar/insolar/api/requester"
 	"github.com/insolar/xns/testutils/launchnet"
 )
 
