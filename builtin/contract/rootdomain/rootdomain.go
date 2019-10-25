@@ -21,8 +21,8 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/insolar/insolar/xns/builtin/proxy/helloworld"
-	"github.com/insolar/insolar/xns/builtin/proxy/pkshard"
+	"github.com/insolar/xns/builtin/proxy/helloworld"
+	"github.com/insolar/xns/builtin/proxy/pkshard"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/logicrunner/builtin/foundation"
 )

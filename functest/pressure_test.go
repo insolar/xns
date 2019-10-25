@@ -145,7 +145,7 @@ package main
 
 import "github.com/insolar/insolar/insolar"
 import "github.com/insolar/insolar/logicrunner/builtin/foundation"
-import "github.com/insolar/insolar/xns/proxy/testCoinPassing"
+import "github.com/insolar/xns/proxy/testCoinPassing"
 import "errors"
 
 type One struct {

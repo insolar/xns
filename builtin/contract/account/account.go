@@ -20,9 +20,9 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/insolar/insolar/xns/builtin/proxy/costcenter"
-	"github.com/insolar/insolar/xns/builtin/proxy/deposit"
-	"github.com/insolar/insolar/xns/builtin/proxy/member"
+	"github.com/insolar/xns/builtin/proxy/costcenter"
+	"github.com/insolar/xns/builtin/proxy/deposit"
+	"github.com/insolar/xns/builtin/proxy/member"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/logicrunner/builtin/foundation"
 	"github.com/insolar/insolar/logicrunner/builtin/foundation/safemath"

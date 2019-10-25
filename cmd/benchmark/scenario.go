@@ -28,7 +28,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/insolar/insolar/xns/api/sdk"
+	"github.com/insolar/xns/api/sdk"
 )
 
 type benchmark struct {

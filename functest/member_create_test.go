@@ -22,9 +22,9 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/insolar/insolar/xns/api/requester"
+	"github.com/insolar/xns/api/requester"
 
-	"github.com/insolar/insolar/xns/testutils/launchnet"
+	"github.com/insolar/xns/testutils/launchnet"
 
 	"github.com/stretchr/testify/require"
 )

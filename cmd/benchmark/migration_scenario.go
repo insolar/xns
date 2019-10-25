@@ -21,7 +21,7 @@ import (
 	"math/big"
 	"strconv"
 
-	"github.com/insolar/insolar/xns/api/sdk"
+	"github.com/insolar/xns/api/sdk"
 )
 
 const (

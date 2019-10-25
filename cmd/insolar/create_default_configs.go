@@ -22,7 +22,7 @@ import (
 
 	yaml "gopkg.in/yaml.v2"
 
-	"github.com/insolar/insolar/xns/bootstrap"
+	"github.com/insolar/xns/bootstrap"
 	pulsewatcher "github.com/insolar/insolar/cmd/pulsewatcher/config"
 	"github.com/insolar/insolar/configuration"
 	"github.com/insolar/insolar/insolar/defaults"

@@ -22,8 +22,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/insolar/insolar/xns/api/instrumenter"
-	"github.com/insolar/insolar/xns/api/requester"
+	"github.com/insolar/xns/api/instrumenter"
+	"github.com/insolar/xns/api/requester"
 	"github.com/insolar/insolar/instrumentation/inslogger"
 
 	"github.com/insolar/rpc/v2"

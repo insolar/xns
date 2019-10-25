@@ -19,8 +19,8 @@ package wallet
 import (
 	"fmt"
 
-	"github.com/insolar/insolar/xns/builtin/proxy/account"
-	"github.com/insolar/insolar/xns/builtin/proxy/deposit"
+	"github.com/insolar/xns/builtin/proxy/account"
+	"github.com/insolar/xns/builtin/proxy/deposit"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/logicrunner/builtin/foundation"
 )

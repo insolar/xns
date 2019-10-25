@@ -34,7 +34,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/pflag"
 
-	"github.com/insolar/insolar/xns/api/sdk"
+	"github.com/insolar/xns/api/sdk"
 	"github.com/insolar/insolar/insolar/defaults"
 	"github.com/insolar/insolar/log"
 	"github.com/insolar/insolar/testutils"

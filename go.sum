@@ -101,6 +101,7 @@ github.com/hexdigest/gowrap v1.1.7/go.mod h1:Z+nBFUDLa01iaNM+/jzoOA1JJ7sm51rnYFa
 github.com/inconshreveable/mousetrap v1.0.0 h1:Z8tu5sraLXCXIcARxBp/8cbvlwVa7Z1NHg9XEKhtSvM=
 github.com/inconshreveable/mousetrap v1.0.0/go.mod h1:PxqpIevigyE2G7u3NXJIT2ANytuPF1OarO4DADm73n8=
 github.com/insolar/go-actors v0.0.0-20190805151516-2fcc7bfc8ff9/go.mod h1:vh6gyvTJhKxCMROgV7ADLE1jS19NAd6gIaHCjHgVWKQ=
+github.com/insolar/insolar v0.9.15 h1:N/c4Qwvol/3tWrE9HKMgEfWdjbX75ZqS6vQHcyKxmkQ=
 github.com/insolar/insolar v0.9.16-0.20191025202438-d0dc6da6e666 h1:cc3uj8ohYv++fMPDGjp08oBhUKmByV4Ld9NLKAxEkQU=
 github.com/insolar/insolar v0.9.16-0.20191025202438-d0dc6da6e666/go.mod h1:aQMtTv6XNnenO2tk3LqKPhlRaPYSELhZ5EdTW2JlL1Q=
 github.com/insolar/rpc v1.2.2-0.20190812143745-c27e1d218f1f h1:ULc0JNaPBjv2yxucU06zkqoXtDgX5Xokb4Dv3iJAcsE=

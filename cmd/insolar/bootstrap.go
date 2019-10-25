@@ -21,7 +21,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/insolar/insolar/xns/bootstrap"
+	"github.com/insolar/xns/bootstrap"
 )
 
 func bootstrapCommand() *cobra.Command {

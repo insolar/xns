@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/insolar/insolar/xns/api/sdk"
+	"github.com/insolar/xns/api/sdk"
 )
 
 const transferAmount = 101

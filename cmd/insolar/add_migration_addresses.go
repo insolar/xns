@@ -24,7 +24,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/insolar/insolar/xns/api/sdk"
+	"github.com/insolar/xns/api/sdk"
 )
 
 func addMigrationAddresses(adminUrls []string, publicUrls []string, memberKeysDirPath string, addressesPath string, shardsCount int) {

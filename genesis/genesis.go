@@ -22,9 +22,9 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/insolar/insolar/xns"
-	"github.com/insolar/insolar/xns/bootstrap/contracts"
-	"github.com/insolar/insolar/xns/genesisrefs"
+	"github.com/insolar/xns"
+	"github.com/insolar/xns/bootstrap/contracts"
+	"github.com/insolar/xns/genesisrefs"
 	"github.com/insolar/insolar/insolar"
 	insolarPulse "github.com/insolar/insolar/insolar/pulse"
 	"github.com/insolar/insolar/insolar/record"

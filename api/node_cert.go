@@ -25,7 +25,7 @@ import (
 
 	"github.com/insolar/rpc/v2"
 
-	"github.com/insolar/insolar/xns/api/instrumenter"
+	"github.com/insolar/xns/api/instrumenter"
 	"github.com/insolar/insolar/certificate"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/instrumentation/inslogger"

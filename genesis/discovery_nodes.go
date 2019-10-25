@@ -21,10 +21,10 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/insolar/insolar/xns"
-	"github.com/insolar/insolar/xns/builtin/contract/nodedomain"
-	"github.com/insolar/insolar/xns/builtin/contract/noderecord"
-	"github.com/insolar/insolar/xns/genesisrefs"
+	"github.com/insolar/xns"
+	"github.com/insolar/xns/builtin/contract/nodedomain"
+	"github.com/insolar/xns/builtin/contract/noderecord"
+	"github.com/insolar/xns/genesisrefs"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/insolar/record"
 	"github.com/insolar/insolar/instrumentation/inslogger"

@@ -28,8 +28,8 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/insolar/insolar/xns"
-	"github.com/insolar/insolar/xns/genesisrefs"
+	"github.com/insolar/xns"
+	"github.com/insolar/xns/genesisrefs"
 	"github.com/insolar/insolar/certificate"
 	"github.com/insolar/insolar/insolar"
 	"github.com/insolar/insolar/insolar/secrets"
