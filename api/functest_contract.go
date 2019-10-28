@@ -27,7 +27,7 @@ import (
 	"github.com/pkg/errors"
 
 	"github.com/insolar/xns"
-	"github.com/insolar/xns/api/instrumenter"
+	"github.com/insolar/insolar/api/instrumenter"
 	"github.com/insolar/xns/extractor"
 	"github.com/insolar/insolar/insolar"
 	insolarApi "github.com/insolar/insolar/insolar/api"
